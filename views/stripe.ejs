@@ -130,7 +130,6 @@
                     <option value="United States">United States</option>
                     <option value="Canada">Canada</option>
                     <option value="India">India</option>
-                    <!-- Add more countries -->
                 </select>
                 <div id="card-element"></div>
                 <button type="submit">Pay $<%= (cartTotal / 100).toFixed(2) %></button>
@@ -140,7 +139,7 @@
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        const stripe = Stripe('your-publishable-key'); // Replace with your Stripe publishable key
+        const stripe = Stripe('pk_test_51PoMAiJT37diaTRkplELDL5RyjUAY4ZeQT6t1zp9oRrj8bZ786PyNYP3IqXgZnRUwYhBtLjaUoFbQrW9QiKOB3TJ006jaoUbjl');
         const elements = stripe.elements();
         const card = elements.create('card');
         card.mount('#card-element');
@@ -157,7 +156,6 @@
                 alert(error.message);
             } else {
                 alert('Payment Successful!');
-                // Send payment method to your server for further processing
             }
         });
     </script>

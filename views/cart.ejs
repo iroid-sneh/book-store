@@ -111,7 +111,7 @@
             cursor: pointer;
             margin-top: 1rem;
         }
-        
+
         .checkout-button:hover {
             background-color: #0056b3;
         }
@@ -129,7 +129,8 @@
             <h2>Order Summary</h2>
             <p>Total Items: <span id="total-items">0</span></p>
             <p>Total Price: $<span id="total-price">0.00</span></p>
-            <a href="http://localhost:8001/check-out"><button class="checkout-button" id="checkout-button">Proceed to Checkout</button></a>
+            <button class="checkout-button" id="checkout-button">Proceed to
+                Checkout</button>
         </div>
     </div>
 
@@ -171,10 +172,6 @@
                 }
             });
 
-            const deletePro = (itemId)=>{
-
-            }
-
             $(document).on('click', '.cart-item-remove', function () {
                 const itemId = $(this).data('id');
                 // console.log(itemId);
@@ -195,13 +192,30 @@
                     }
                 });
             });
-
-            // $(document).on('click', '.checkout-button', function () {
-            //     $.ajax({
-            //         url: "http://localhost:8001/stripe-payment",
-            //         type: "GET",
-            //     })
-            // })
+            $(document).ready(function () {
+                $('#checkout-button').click(function () {
+                    fetch('http://localhost:8001/create-checkout-session', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include'
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.data) {
+                                window.location.href = data.data; 
+                            } else {
+                                swal("Error", "Failed to create Stripe Checkout Session", "error");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            swal("Error", "Something went wrong", "error");
+                        });
+                });
+            });
         });
 
     </script>

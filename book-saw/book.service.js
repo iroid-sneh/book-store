@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { BadRequestException, NotFoundException, PreconditionFailedException, UnauthorizedException } from '../common/error-exception';
 import { isArray } from 'lodash';
+import Stripe from 'stripe';
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 class bookService {
 
@@ -160,7 +162,6 @@ class bookService {
         const total = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
         const totalItems = cart.items.reduce((count, item) => count + item.quantity, 0);
 
-        // console.log({ items: cart.items, total, totalItems });
         return { items: cart.items, total, totalItems };
     }
 
@@ -189,18 +190,68 @@ class bookService {
     }
 
 
+    // /**
+    //  * @description: Stripe Payment Page    
+    //  * @param {*} req 
+    //  * @param {*} res 
+    //  */
+    // static async stripePaymentPage(req, res) {
+    //     res.render('stripe', {
+    //         title: 'Stripe Checkout',
+    //         cartTotal: 4000,
+    //         currency: 'usd',
+    //         productName: 'Book Title',
+    //     });
+    // }
+
     /**
-     * @description: Stripe Payment Page
-     * @param {*} req 
-     * @param {*} res 
+     * @description: Stripe Payment For the Cart
+     * @param {*} data
+     * @param {*} req
+     * @param {*} res
      */
-    static async stripePaymentPage(req, res) {
-        res.render('stripe', {
-            title: 'Stripe Checkout',
-            cartTotal: 4000,
-            currency: 'usd',
-            productName: 'Book Title',
-        });
+    static async stripePayment(data, req, res) {
+        const token = req.session.token;
+        if (!token) {
+            throw new UnauthorizedException("Unauthorized token");
+        }
+        const userId = req.userId;
+        const cart = await Cart.findOne({ userId });
+        if (!cart || cart.items.length === 0) {
+            throw new PreconditionFailedException("Cart Not Found or Empty");
+        }
+        const lineItems = cart.items.map(item => ({
+            price_data: {
+                currency: 'usd',
+                product_data: {
+                    name: item.title
+                },
+                unit_amount: Math.round(item.price * 100),
+            },
+            quantity: item.quantity
+        }));
+
+        try {
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items: lineItems,
+                mode: 'payment',
+                success_url: "http://localhost:8001/success",
+                cancel_url: "http://localhost:8001/view-cart"
+            })  
+            return session.url;
+        } catch (error) {
+            console.log("Error In Stripe Payment", error)
+        }
+    }
+
+    /**
+     * @description: Success Page For Payment
+     * @param {*} req
+     * @param {*} res
+     */
+    static async success(req, res) {
+        return res.render('success');
     }
 
 };

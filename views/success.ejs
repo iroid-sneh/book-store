@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .success-container {
+            text-align: center;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .success-icon {
+            font-size: 50px;
+            color: #4CAF50;
+        }
+        .success-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 20px 0 10px;
+        }
+        .success-message {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .finish-button {
+            background: #40407a;
+            color: white;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 12px 25px;
+            font-size: 14px;
+            border-radius: 5px;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .finish-button:hover {
+            background: #40407a;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+        .footer a {
+            text-decoration: none;
+            color: #6C63FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✔</div>
+        <div class="success-title">Payment Successful!</div>
+        <div class="success-message">Your payment has been completed.</div>
+        <button class="finish-button" onclick="window.location.href='/';">Finish</button>
+        <div class="footer">
+            <p>Secure payments | Powered by <a href="http://localhost:8001">BOOK SAW</a></p>
+        </div>
+    </div>
+</body>
+</html>
