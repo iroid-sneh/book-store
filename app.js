@@ -32,8 +32,6 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
-
 app.use('/', routes);
 app.get('/error', (req, res) => {
     return res.render('errors/500');

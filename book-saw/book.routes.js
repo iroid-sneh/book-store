@@ -3,7 +3,6 @@ import bookController from './book.controller';
 import auth from '../common/middleware/auth';
 const router = express.Router();
 
-router.get('/', bookController);
 router.get('/signup', bookController.signupPage);
 router.post('/api/signup', bookController.signup);
 router.get('/login', bookController.loginPage);
