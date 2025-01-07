@@ -189,21 +189,6 @@ class bookService {
         await cart.save();
     }
 
-
-    // /**
-    //  * @description: Stripe Payment Page    
-    //  * @param {*} req 
-    //  * @param {*} res 
-    //  */
-    // static async stripePaymentPage(req, res) {
-    //     res.render('stripe', {
-    //         title: 'Stripe Checkout',
-    //         cartTotal: 4000,
-    //         currency: 'usd',
-    //         productName: 'Book Title',
-    //     });
-    // }
-
     /**
      * @description: Stripe Payment For the Cart
      * @param {*} data
@@ -230,7 +215,7 @@ class bookService {
             },
             quantity: item.quantity
         }));
-
+        
         try {
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
@@ -238,7 +223,8 @@ class bookService {
                 mode: 'payment',
                 success_url: "http://localhost:8001/success",
                 cancel_url: "http://localhost:8001/view-cart"
-            })  
+            })
+            await cart.deleteOne({ userId });
             return session.url;
         } catch (error) {
             console.log("Error In Stripe Payment", error)

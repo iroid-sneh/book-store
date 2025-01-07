@@ -12,7 +12,7 @@ router.post('/add-to-cart', auth, bookController.addToCart);
 router.get('/view-cart', auth, bookController.viewCartPage);
 router.post('/view-cart', auth, bookController.viewCart);
 router.delete(`/remove-cart-item/:id`, auth, bookController.removeItemFromCart);
-router.post('/create-checkout-session', auth, bookController.stripePage);
+router.post('/create-checkout-session', auth, bookController.stripePayment);
 router.get('/success', auth, bookController.success);
 
 export default router;

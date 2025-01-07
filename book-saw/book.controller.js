@@ -85,7 +85,7 @@ class bookController {
      * @param {*} req
      * @param {*} res
      */
-    static async stripePage(req, res) {
+    static async stripePayment(req, res) {
         const data = await bookService.stripePayment(req.body, req, res);
         return res.send({ data: data });
     }
