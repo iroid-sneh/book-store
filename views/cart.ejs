@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore - Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFFFFF;
+            /* Updated background to match palette */
+            color: #1A1A1A;
+            /* Updated text color */
+        }
+
+        .cart-container {
+            padding: 7rem;
+            max-width: 600px;
+            margin: 5rem auto;
+            min-height: 30vh;
+            background-color: #2c2c54;
+            /* Light beige for the cart container */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Softer shadow for a minimal look */
+        }
+
+        h1 {
+            text-align: center;
+            color: #FFFFFF;
+            /* Soft orange for headings */
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #40407a;
+            color: #FFFFFF;
+            /* border: 1px solid #EDE8E3; */
+            border-radius: 8px;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 80px;
+            border-radius: 4px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            margin-left: 1rem;
+        }
+
+        .cart-item-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FFFFFF;
+
+        }
+
+        .cart-item-price {
+            color: #FFFFFF;
+            margin-top: 0.5rem;
+        }
+
+        .cart-item-remove {
+            background-color: #FF4D4D;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .cart-item-remove:hover {
+            background-color: #E53935;
+        }
+
+        .cart-summary {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .cart-summary h2 {
+            color: #FFFFFF;
+        }
+
+        .cart-summary p {
+            margin: 0.5rem 0;
+            color: #FFFFFF;
+        }
+
+        .checkout-button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #007bff;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        .checkout-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="cart-container">
+        <h1>Your Cart</h1>
+        <div id="cart-items-container">
+        </div>
+
+        <div class="cart-summary">
+            <h2>Order Summary</h2>
+            <p>Total Items: <span id="total-items">0</span></p>
+            <p>Total Price: $<span id="total-price">0.00</span></p>
+            <a href="http://localhost:8001/check-out"><button class="checkout-button" id="checkout-button">Proceed to Checkout</button></a>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'http://localhost:8001/view-cart',
+                type: 'POST',
+                success: function (response) {
+                    const { items, total, totalItems } = response.data;
+
+                    if (!items || items.length === 0) {
+                        $('#cart-items-container').html('<p>No items in the cart.</p>');
+                    } else {
+                        items.forEach(item => {
+                            const cartItemHtml = `
+                        <div class="cart-item">
+                            <img src="${item.image || 'https://via.placeholder.com/60x80'}" alt="Book Thumbnail">
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${item.title}</div>
+                                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                                <div>Quantity: ${item.quantity}</div>
+                            </div>
+                            <button class="cart-item-remove" data-id="${item.bookId}">Remove</button>
+                        </div>
+                    `;
+                            $('#cart-items-container').append(cartItemHtml);
+                        });
+
+                        $('#total-price').text(total.toFixed(2));
+                        $('#total-items').text(totalItems);
+                    }
+                },
+                error: function () {
+                    swal({
+                        title: "Failed to fetch Cart Details",
+                        icon: "error"
+                    });
+                }
+            });
+
+            const deletePro = (itemId)=>{
+
+            }
+
+            $(document).on('click', '.cart-item-remove', function () {
+                const itemId = $(this).data('id');
+                // console.log(itemId);
+                $.ajax({
+                    url: `http://localhost:8001/remove-cart-item/${itemId}`,
+                    type: 'DELETE',
+                    success: function () {
+                        swal({
+                            title: "Item Removed",
+                            icon: "success"
+                        }).then(() => location.reload());
+                    },
+                    error: function () {
+                        swal({
+                            title: "Failed to Remove Item",
+                            icon: "error"
+                        });
+                    }
+                });
+            });
+
+            // $(document).on('click', '.checkout-button', function () {
+            //     $.ajax({
+            //         url: "http://localhost:8001/stripe-payment",
+            //         type: "GET",
+            //     })
+            // })
+        });
+
+    </script>
+</body>
+
+</html>
