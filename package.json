@@ -19,8 +19,16 @@
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
+    "math": "^0.0.3",
     "mongoose": "^8.9.2",
+    "nodemailer": "^6.9.16",
     "nodemon": "^3.1.9",
+    "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.1",
     "stripe": "^17.5.0"
   },
   "devDependencies": {

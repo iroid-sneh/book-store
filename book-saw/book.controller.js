@@ -99,6 +99,66 @@ class bookController {
         const data = await bookService.success(req, res);
         return
     }
+
+    /**
+     * @description: Forgot assword Page
+     * @param {*} req
+     * @param {*} res
+     */
+    static async forgotPasswordPage(req, res) {
+        const data = await bookService.forgotPasswordPage(req, res);
+        return
+    }
+
+    /**
+     * @description: Forgot Password
+     * @param {*} req
+     * @param {*} res
+     */
+    static async forgotPassword(req, res) {
+        const data = await bookService.forgotPassword(req.body, req, res);
+        return res.send({ data: data });
+    }
+
+    /**
+     * @description: Reset Code Verify Page
+     * @param {*} req
+     * @param {*} res
+     */
+    static async resetCodePage(req, res) {
+        const data = await bookService.resetCodeVerifyPage(req, res);
+        return
+    }
+
+    /**
+     * @description: Reset Code Verify
+     * @param {*} req
+     * @param {*} res
+     */
+    static async resetCode(req, res) {
+        const data = await bookService.verifyResetCode(req.body, req, res);
+        return
+    }
+
+    // /**
+    //  * @description: Reset Password Page 
+    //  * @param {*} req
+    //  * @param {*} res
+    //  */
+    // static async setPasswordPage(req, res) {
+    //     const data = await bookService.setPasswordPage(req, res);
+    //     return  
+    // }
+
+    /**
+     * @description: Set New Password
+     * @param {*} req
+     * @param {*} res
+     */
+    static async setPassword(req, res) {
+        const data = await bookService.setPassword(req.body, req, res);
+        return res.send({ data: data, message: "Password Updated Successfully" });
+    }
 };
 
 export default bookController; 

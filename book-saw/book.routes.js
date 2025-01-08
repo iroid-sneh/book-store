@@ -13,5 +13,11 @@ router.post('/view-cart', auth, bookController.viewCart);
 router.delete(`/remove-cart-item/:id`, auth, bookController.removeItemFromCart);
 router.post('/create-checkout-session', auth, bookController.stripePayment);
 router.get('/success', auth, bookController.success);
+router.get('/forgot-password', bookController.forgotPasswordPage);
+router.post('/forgot-password', bookController.forgotPassword);
+router.get('/reset-code', bookController.resetCodePage);
+router.post('/reset-code', bookController.resetCode);
+// router.get('/reset-password', bookController.setPasswordPage);
+router.post('/reset-password', bookController.setPassword);
 
 export default router;

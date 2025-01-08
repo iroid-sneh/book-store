@@ -13,9 +13,7 @@
             margin: 0;
             padding: 0;
             background-color: #2c2c54;
-            /* Dark background matching palette */
             color: #FFFFFF;
-            /* Light text */
         }
 
         .auth-container {
@@ -25,127 +23,95 @@
             height: 100vh;
         }
 
+        /* .auth-form h1 {
+            color: #2c2c54;
+        } */
+
         .auth-form {
-            background-color: #FFFFFF;
-            /* Slightly lighter dark */
-            border-radius: 8px;
+            background-color: #ffffff;
+            border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-        }
-
-        .auth-form h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #2C346B;
-            /* Accent color matching reference */
             text-align: center;
         }
 
-        .auth-form label {
-            color: #2C346B;
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
+        .auth-form img {
+            margin-bottom: 1rem;
+            max-width: 100px;
         }
 
         .auth-form input {
-            width: 90%;
-            padding: 1.5rem 1rem;
+            width: calc(100% - 2rem);
+            padding: 0.75rem 1rem;
             margin-bottom: 1rem;
-            border: 1px solid #333;
-            border-radius: 10rem;
-            background-color: #333;
-            color: #FFFFFF;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            background-color: #f5f5f5;
+            color: #333;
         }
 
         .auth-form input:focus {
-            border-color: #2C346B;
+            border-color: #2c2c54;
             outline: none;
         }
 
         .auth-form button {
-            width: 97%;
-            margin-top: 20px;
+            width: 100%;
             padding: 0.75rem;
-            color: #FFFFFF;
+            margin-top: 1rem;
+            background-color: #2c2c54;
+            color: #ffffff;
             border: none;
-            border-radius: 4px;
+            border-radius: 30px;
             font-size: 1rem;
             font-weight: bold;
-            background-color: #3245d1;
             cursor: pointer;
         }
-        
+
         .auth-form button:hover {
-            background-color: #2C346B;
+            background-color: #3c3c70;
         }
 
-        .auth-form .alt-option {
-            margin-top: 1rem;
-            text-align: center;
+        .forgot-pass {
+            text-align: right;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
         }
 
-        .auth-form .alt-option a {
-            color: #2C346B;
+        .forgot-pass a {
+            color: #2c2c54;
             text-decoration: none;
         }
 
-        .auth-form .alt-option a:hover {
+        .forgot-pass a:hover {
             text-decoration: underline;
-        }
-
-        .auth-form input,
-        .auth-form select {
-            width: 90%;
-            padding: 12px 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-        }
-
-        .auth-form input,
-        .auth-form select {
-            background-color: #ccc;
-            color: #ffffff;
-        }
-
-        .auth-form input::placeholder {
-            color: #000;
-        }
-
-        .auth-form input,
-        .auth-form button {
-            border-radius: 30px;
-            /* Adjust this value for more/less rounded corners */
         }
     </style>
 </head>
 
 <body>
-
     <div class="auth-container">
         <form class="auth-form" id="login-form">
-            <h1>Login</h1>
-            <!-- <label for="email">Email</label> -->
+            <img src="images/main-logo.png" alt="Logo">
+            <!-- <h1>Login</h1> -->
             <input type="email" id="email" placeholder="Enter your email" required>
-
-            <!-- <label for="password">Password</label> -->
             <input type="password" id="password" placeholder="Enter your password" required>
-
+            <div class="forgot-pass">
+                <a href="http://localhost:8001/forgot-password">Forgot Password?</a>
+            </div>
             <button type="submit" id="submit">Login</button>
         </form>
     </div>
 
     <script>
-
         document.getElementById('login-form').addEventListener('submit', (event) => {
             event.preventDefault();
             const data = {
                 email: document.getElementById('email').value,
                 password: document.getElementById('password').value,
-            }
+            };
             $.ajax({
                 url: 'http://localhost:8001/login',
                 type: 'POST',
@@ -159,11 +125,9 @@
                     alert('Wrong Password');
                     window.location.href = 'http://localhost:8001/login'; // Redirect on error
                 }
-            })
-
+            });
         });
     </script>
-
 </body>
 
 </html>
