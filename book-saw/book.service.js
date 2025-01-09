@@ -320,11 +320,10 @@ class bookService {
      */
     static async setPassword(data, resetToken) {
         const { newPassword } = data;
-        // Find user with matching reset token and expiry
         const findUser = await User.findOne({
             resetToken: resetToken,
             resetTokenExpires: {
-                $gt: new Date(), // Ensure token has not expired
+                $gt: new Date(), 
             },
         });
 
@@ -332,22 +331,17 @@ class bookService {
             throw new BadRequestException('Invalid or expired reset token');
         }
 
-
-        // Validate the new password
         if (!newPassword || typeof newPassword !== 'string') {
             throw new BadRequestException('New password is required and must be a valid string');
         }
 
-        // Generate salt and hash the new password
         const salt = await bcrypt.genSalt(12);
         const hashedNewPassword = await bcrypt.hash(newPassword, salt);
 
-        // Update user password and clear reset token fields
         findUser.password = hashedNewPassword;
         findUser.resetToken = undefined;
         findUser.resetTokenExpires = undefined;
 
-        // Save the updated user document
         await findUser.save();
     }
 
