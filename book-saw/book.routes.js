@@ -15,9 +15,9 @@ router.post('/create-checkout-session', auth, bookController.stripePayment);
 router.get('/success', auth, bookController.success);
 router.get('/forgot-password', bookController.forgotPasswordPage);
 router.post('/forgot-password', bookController.forgotPassword);
-router.get('/reset-code', bookController.resetCodePage);
-router.post('/reset-code', bookController.resetCode);
-// router.get('/reset-password', bookController.setPasswordPage);
-router.post('/reset-password', bookController.setPassword);
+// router.get('/reset-code', bookController.resetCodePage);
+// router.post('/reset-code', bookController.resetCode);
+router.get('/reset-password/:token', bookController.setPasswordPage);
+router.post('/reset-password/:token', bookController.setPassword);
 
 export default router;

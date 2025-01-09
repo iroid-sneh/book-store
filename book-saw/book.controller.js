@@ -120,35 +120,35 @@ class bookController {
         return res.send({ data: data });
     }
 
-    /**
-     * @description: Reset Code Verify Page
-     * @param {*} req
-     * @param {*} res
-     */
-    static async resetCodePage(req, res) {
-        const data = await bookService.resetCodeVerifyPage(req, res);
-        return
-    }
-
-    /**
-     * @description: Reset Code Verify
-     * @param {*} req
-     * @param {*} res
-     */
-    static async resetCode(req, res) {
-        const data = await bookService.verifyResetCode(req.body, req, res);
-        return
-    }
-
     // /**
-    //  * @description: Reset Password Page 
+    //  * @description: Reset Code Verify Page
     //  * @param {*} req
     //  * @param {*} res
     //  */
-    // static async setPasswordPage(req, res) {
-    //     const data = await bookService.setPasswordPage(req, res);
-    //     return  
+    // static async resetCodePage(req, res) {
+    //     const data = await bookService.resetCodeVerifyPage(req, res);
+    //     return
     // }
+
+    /**
+    //  * @description: Reset Code Verify
+    //  * @param {*} req
+    //  * @param {*} res
+    //  */
+    // static async resetCode(req, res) {
+    //     const data = await bookService.verifyResetCode(req.body, req, res);
+    //     return
+    // }
+
+    /**
+     * @description: Reset Password Page 
+     * @param {*} req
+     * @param {*} res
+     */
+    static async setPasswordPage(req, res) {
+        const data = await bookService.setPasswordPage(req, res);
+        return
+    }
 
     /**
      * @description: Set New Password
@@ -156,8 +156,8 @@ class bookController {
      * @param {*} res
      */
     static async setPassword(req, res) {
-        const data = await bookService.setPassword(req.body, req, res);
-        return res.send({ data: data, message: "Password Updated Successfully" });
+        const data = await bookService.setPassword(req.body, req.params.token);
+        return res.send({ data: data });
     }
 };
 

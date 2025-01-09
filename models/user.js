@@ -13,10 +13,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    resetCode: {
-        type: Number
+    resetToken: {
+        type: String
     },
-    resetCodeExpires: {
+    resetTokenExpires: {
         type: Date
     }
 }, { timestamps: true });
