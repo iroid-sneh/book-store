@@ -1,5 +1,6 @@
 import express from 'express';
 import bookController from './book.controller';
+import passport from 'passport';
 import auth from '../common/middleware/auth';
 const router = express.Router();
 
@@ -19,5 +20,10 @@ router.post('/forgot-password', bookController.forgotPassword);
 // router.post('/reset-code', bookController.resetCode);
 router.get('/reset-password/:token', bookController.setPasswordPage);
 router.post('/reset-password/:token', bookController.setPassword);
+router.get('/facebook', passport.authenticate('facebook', { scope: 'email' }));
+router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/' }),
+    (req, res) => {
+        res.redirect('/');
+    });
 
 export default router;
