@@ -1,0 +1,111 @@
+<%- include('../layouts/header') %>
+
+    <h1 class="h3 mb-2 text-gray-800">Users</h1>
+
+    <div class="card shadow mb-3">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="userTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID.</th>
+                            <th>Name</th>
+                            <!-- <th>LastName</th> -->
+                            <th>Email</th>
+                            <!-- <th>Number</th> -->
+                            <!-- <th>Image</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- /admin/vendor/jquery/jquery.min.js -->
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> -->
+
+    <!-- <script>
+    $(document).on("click", ".deleteUser", function () {
+        const userId = $(this).data("id"); 
+      new  swal({  
+            title: "Are you sure you want to delete this user?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: `/admin/users/${userId}`, 
+                    type: 'DELETE',
+                    success: function (response) {
+                     new  swal({
+                            title: response.msg || "User deleted successfully",
+                            icon: "success",
+                        });
+                        
+                        $(`button[data-id="${userId}"]`).closest('tr').remove(); 
+                    },
+                    error: function () {
+                       new  swal({
+                            title: "Failed to delete user",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script> -->
+
+    <script>
+        $("#success").show().delay(2000).fadeOut();
+        $("#error").show().delay(2000).fadeOut();
+        $("#page-title").text('Users');
+        $("#select-users").addClass('active', 'true');
+
+        $(document).ready(function () {
+            $('#userTable').DataTable({
+                serverSide: true,
+                paging: true,
+                responsive: true,
+                searching: true,
+                processing: true,
+                ordering: false,
+                ajax: {
+                    url: `/admin/user/users`,
+                    type: 'GET'
+                },
+                columns: [
+                    {
+                        "data": "id",
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "Name" },
+                    // { "data": "lastName" },
+                    { "data": "email" },
+                    // { "data": "phoneNumber" },
+                    // {
+                    //     "data": "image",
+                    //     "render": function (data) {
+                    //         return data == null ? 'No Image' : `<img src="${'<%= process.env.BASE_URL %>'}:${'<%= process.env.PORT %>'}/${data}">`
+                    //     }
+                    // }
+                ]
+            });
+        });
+
+
+
+    </script>
+
+    <%- include('../layouts/footer') %>

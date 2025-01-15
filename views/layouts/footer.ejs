@@ -1,0 +1,125 @@
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span></span></span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="/admin/vendor/jquery/jquery.min.js"></script>
+<script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/admin/js/sb-admin-2.min.js"></script>
+
+<script src="/admin/js/sweetalert.js"></script>
+
+<!-- Datatable -->
+<script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="/admin/js/demo/datatables-demo.js"></script>
+
+<!-- jQuery validation -->
+<!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> -->
+<script src="/admin/js/validation-jquery.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+
+    $('#logo1').hide();
+
+    function logo() {
+        $('#logo1').show();
+        if ($(".sidebar").hasClass("toggled")) {
+            $('#logo1').hide();
+        };
+    }
+
+    function logo1() {
+        $('#logo1').show();
+        if ($(".sidebar").hasClass("toggled")) {
+            // $('#logo1').hide();
+            $('.sidebar .collapse').collapse('hide');
+        };
+    }
+
+
+    // function logoutAdmin(ev) {
+    //     ev.preventDefault();
+    //     var id = ev.currentTarget.getAttribute('href');
+    //     // console.log(id);
+    //     swal({
+    //         title: "Are you sure you want to logout?",
+    //         icon: "warning",
+    //         buttons: ["Cancel", "Logout"],
+    //         dangerMode: true,
+    //     })
+    //         .then((willDelete) => {
+    //             if (willDelete) {
+    //                 $.ajax({
+    //                     url: id,
+    //                     type: 'GET',
+    //                     success: function (d) {
+    //                         window.location.reload(true)
+    //                     }
+    //                 });
+    //             }
+    //         });
+    // }
+    function logoutAdmin(ev) {
+        ev.preventDefault();
+        var id = ev.currentTarget.getAttribute('href');
+        // console.log(id);
+        Swal.fire({
+            title: 'Are you sure you want to logout ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, logout it !!',
+            cancelButtonText: 'No, cancel it !!',
+        })
+            .then((willDelete) => {
+                if (willDelete.isConfirmed) {
+                    $.ajax({
+                        url: id,
+                        type: 'GET',
+                        success: function (d) {
+                            window.location.reload(true)
+                        }
+                    });
+                }
+            });
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel Login</title>
+    <!-- <link rel="stylesheet" href="adminStyle.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2c2c54;
+            color: #FFFFFF;
+        }
+
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .auth-form h1 {
+            color: black;
+        }
+
+        .auth-form {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .auth-form img {
+            margin-bottom: 1rem;
+            max-width: 100px;
+        }
+
+        .auth-form input {
+            width: calc(100% - 2rem);
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .auth-form input:focus {
+            border-color: #2c2c54;
+            outline: none;
+        }
+
+        .auth-form button {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            background-color: #2c2c54;
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .auth-form button:hover {
+            background-color: #3c3c70;
+        }
+
+        .forgot-pass {
+            text-align: right;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .forgot-pass a {
+            color: #2c2c54;
+            text-decoration: none;
+        }
+
+        .forgot-pass a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <form class="auth-form" id="login-form">
+            <!-- <img src="/public/images/main-logo.png" alt="Logo"> -->
+            <!-- <h1>Admin Login</h1> -->
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <div class="forgot-pass">
+                <!-- <a href="http://localhost:8001/forgot-password">Forgot Password?</a> -->
+            </div>
+            <button type="submit" id="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+
+        document.getElementById("login-form").addEventListener("submit", () => {
+            event.preventDefault()
+            const data = {
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+            }
+            $.ajax({
+                url: 'http://localhost:8001/admin/login',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function () {
+                    window.location.href = "http://localhost:8001/admin/dashboard";
+                },
+                error: function () {
+                    window.location.href = "http://localhost:8001/admin/login";
+                }
+            });
+        })
+    </script>
+
+</html>

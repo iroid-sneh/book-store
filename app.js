@@ -9,6 +9,7 @@ import { mongoConnection } from './models/connection';
 import errorHandler from './common/error-handler';
 import bodyParser from 'body-parser';
 import passport from './common/config/facebook';
+import'./seeder/admin';
 
 const port = process.env.PORT || 8002;
 const app = express();
