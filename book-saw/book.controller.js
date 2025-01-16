@@ -42,16 +42,6 @@ class bookController {
     }
 
     // /**
-    //  * @description: Check Login Status
-    //  * @param {*} req
-    //  * @param {*} res
-    //  */
-    // static async checkLogin(req, res) {
-    //     const data = await bookService.checkLogin(req,res);
-    //     return 
-    // }
-
-    // /**
     //  * @description: Logout 
     //  * @param {*} req
     //  * @param {*} res
@@ -108,6 +98,26 @@ class bookController {
     static async stripePayment(req, res) {
         const data = await bookService.stripePayment(req.body, req, res);
         return res.send({ data: data });
+    }
+
+    /**
+     * @description: Order History
+     * @param {*} req
+     * @param {*} res
+     */
+    static async orderHistory(req, res) {
+        const data = await bookService.orderHistory(req, res);
+        return res.send({ data: data });
+    }
+
+    /**
+     * @description: Order History Page
+     * @param {*} req
+     * @param {*} res
+     */
+    static async orderHistoryPage(req, res) {
+        const data = await bookService.orderHistoryPage(req, res);
+        return
     }
 
     /**

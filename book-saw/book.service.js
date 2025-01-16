@@ -165,9 +165,7 @@ class bookService {
      */
     static async ViewCart(data, req, res) {
         const userId = req.userId;
-        // console.log(userId);
         const cart = await Cart.findOne({ userId });
-        // console.log(cart);
         if (!cart || !Array.isArray(cart.items)) {
             return { items: [], total: 0, totalItems: 0 }
         }
@@ -248,6 +246,33 @@ class bookService {
         } catch (error) {
             console.log("Error In Stripe Payment", error)
         }
+    }
+
+    /**
+     * @description: Order History Page
+     * @param {*} req
+     * @param {*} res
+     */
+    static async orderHistoryPage(req, res) {
+        return res.render('history');
+    }
+
+    /**
+     * @description: Order History
+     * @param {*} req
+     * @param {*} res
+     */
+    static async orderHistory(req, res) {
+        const userId = req.userId;
+        const findHistory = await cartHistory.findOne({ userId });
+        if (!findHistory || !Array.isArray(findHistory.items)) {
+            return { items: [], total: 0, totalItems: 0 }
+            // throw new PreconditionFailedException("No Order History Found");
+        }
+        const total = findHistory.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const totalItems = findHistory.items.reduce((count, item) => count + item.quantity, 0);
+
+        return { items: findHistory.items, total, totalItems };
     }
 
     /**

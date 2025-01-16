@@ -15,6 +15,8 @@ router.get('/view-cart', auth, bookController.viewCartPage);
 router.post('/view-cart', auth, bookController.viewCart);
 router.delete(`/remove-cart-item/:id`, auth, bookController.removeItemFromCart);
 router.post('/create-checkout-session', auth, bookController.stripePayment);
+router.get('/order-history', auth, bookController.orderHistoryPage);
+router.post('/order-history', auth, bookController.orderHistory);
 router.get('/success', auth, bookController.success);
 router.get('/forgot-password', bookController.forgotPasswordPage);
 router.post('/forgot-password', bookController.forgotPassword);
