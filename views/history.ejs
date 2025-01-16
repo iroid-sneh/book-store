@@ -99,7 +99,7 @@
             color: #FFFFFF;
         }
 
-        .checkout-button {
+        .Go-Home {
             width: 100%;
             padding: 1rem;
             background-color: #007bff;
@@ -112,7 +112,7 @@
             margin-top: 1rem;
         }
 
-        .checkout-button:hover {
+        .Go-Home:hover {
             background-color: #0056b3;
         }
     </style>
@@ -129,6 +129,9 @@
             <!-- <h2>Order History</h2> -->
             <p>Total Items: <span id="total-items">0</span></p>
             <p>Total Price Paid: $<span id="total-price">0.00</span></p>
+            <a href="http://localhost:8001/">
+                <button class="Go-Home" id="go-home">Go To Home Page</button>
+            </a>
         </div>
     </div>
 
@@ -161,7 +164,7 @@
                         $('#total-items').text(totalItems);
                     }
                 },
-                error: function () {
+                error: function (xhr, status, error) {
                     swal({
                         title: "Failed to fetch Cart Details",
                         icon: "error"

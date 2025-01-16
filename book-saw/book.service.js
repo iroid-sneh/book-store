@@ -264,15 +264,20 @@ class bookService {
      */
     static async orderHistory(req, res) {
         const userId = req.userId;
-        const findHistory = await cartHistory.findOne({ userId });
-        if (!findHistory || !Array.isArray(findHistory.items)) {
-            return { items: [], total: 0, totalItems: 0 }
-            // throw new PreconditionFailedException("No Order History Found");
-        }
-        const total = findHistory.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        const totalItems = findHistory.items.reduce((count, item) => count + item.quantity, 0);
+        try {
+            const findHistory = await cartHistory.find({ userId });
 
-        return { items: findHistory.items, total, totalItems };
+            if (!findHistory || findHistory.length === 0) {
+                return { items: [], total: 0, totalItems: 0 }
+            }
+            const allItems = findHistory.flatMap(history => history.items);
+            const total = allItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const totalItems = allItems.reduce((count, item) => count + item.quantity, 0);
+
+            return { items: allItems, total, totalItems };
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     /**
