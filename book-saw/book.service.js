@@ -1,5 +1,6 @@
 require('dotenv').config();
 import crypto from 'crypto';
+import cartHistory from '../models/cartHistory';
 import User from '../models/user';
 import Cart from '../models/cart';
 import Nodemailer from 'nodemailer';
@@ -227,6 +228,12 @@ class bookService {
             quantity: item.quantity
         }));
 
+        const history = await cartHistory.create({
+            userId: userId,
+            items: cart.items
+        });
+        history.save();
+        // console.log(history);
         try {
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
@@ -237,6 +244,7 @@ class bookService {
             })
             await cart.deleteOne({ userId });
             return session.url;
+
         } catch (error) {
             console.log("Error In Stripe Payment", error)
         }
@@ -323,7 +331,7 @@ class bookService {
         const findUser = await User.findOne({
             resetToken: resetToken,
             resetTokenExpires: {
-                $gt: new Date(), 
+                $gt: new Date(),
             },
         });
 

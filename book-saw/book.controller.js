@@ -41,6 +41,26 @@ class bookController {
         return res.send({ data: data });
     }
 
+    // /**
+    //  * @description: Check Login Status
+    //  * @param {*} req
+    //  * @param {*} res
+    //  */
+    // static async checkLogin(req, res) {
+    //     const data = await bookService.checkLogin(req,res);
+    //     return 
+    // }
+
+    // /**
+    //  * @description: Logout 
+    //  * @param {*} req
+    //  * @param {*} res
+    //  */
+    // static async logout(req, res) {
+    //     const data = await bookService.logout(req,res);
+    //     return 
+    // }
+
     /**
      * @description: View Cart Page
      * @param {*} req
@@ -119,26 +139,6 @@ class bookController {
         const data = await bookService.forgotPassword(req.body, req, res);
         return res.send({ data: data });
     }
-
-    // /**
-    //  * @description: Reset Code Verify Page
-    //  * @param {*} req
-    //  * @param {*} res
-    //  */
-    // static async resetCodePage(req, res) {
-    //     const data = await bookService.resetCodeVerifyPage(req, res);
-    //     return
-    // }
-
-    /**
-    //  * @description: Reset Code Verify
-    //  * @param {*} req
-    //  * @param {*} res
-    //  */
-    // static async resetCode(req, res) {
-    //     const data = await bookService.verifyResetCode(req.body, req, res);
-    //     return
-    // }
 
     /**
      * @description: Reset Password Page 

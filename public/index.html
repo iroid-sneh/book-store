@@ -33,7 +33,8 @@
 						<div class="social-links">
 							<ul>
 								<li>
-									<a href="http://localhost:8001/facebook/callback"><i class="icon icon-facebook"></i></a>
+									<a href="http://localhost:8001/facebook/callback"><i
+											class="icon icon-facebook"></i></a>
 								</li>
 								<li>
 									<a href="#"><i class="icon icon-twitter"></i></a>
@@ -51,7 +52,7 @@
 						<div class="right-element">
 							<a href="http://localhost:8001/signup" class="user-account for-buy"><i
 									class="icon icon-user"></i><span>Account</span></a>
-							<a href="http://localhost:8001/login" class="user-account for-buy"><i
+							<a id="auth-link" href="http://localhost:8001/login" class="user-account for-buy"><i
 									class="icon icon-user"></i><span>Login</span></a>
 							<a href="http://localhost:8001/view-cart" class="cart for-buy"><i
 									class="icon icon-clipboard"></i><span>Cart</span></a>
@@ -1257,6 +1258,8 @@
 	<script src="js/script.js"></script>
 
 	<script>
+		
+
 		$("#success").show().delay(2000).fadeOut();
 		$("#error").show().delay(2000).fadeOut();
 		// document.getElementsByClassName('add-to-cart').addEventListener('button', (event) => {
