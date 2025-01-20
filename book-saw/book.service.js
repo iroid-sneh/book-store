@@ -281,6 +281,22 @@ class bookService {
     }
 
     /**
+     * @description: Logout User
+     * @param {*} req
+     * @param {*} res
+     */
+    static async logout(req, res) {
+        req.session.destroy(err => {
+            if (err) {
+                return res.redirect('/');
+            } else {
+                res.clearCookie('connect.sid');
+                res.redirect('/login');
+            }
+        });
+    }
+
+    /**
      * @description: Success Page For Payment
      * @param {*} req
      * @param {*} res

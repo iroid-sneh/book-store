@@ -9,7 +9,7 @@ router.post('/api/signup', bookController.signup);
 router.get('/login', bookController.loginPage);
 router.post('/login', bookController.login);
 // router.get('/check-login', bookController.checkLogin);
-// router.get('/logout', bookController.logout);
+router.get('/logout', auth, bookController.logout);
 router.post('/add-to-cart', auth, bookController.addToCart);
 router.get('/view-cart', auth, bookController.viewCartPage);
 router.post('/view-cart', auth, bookController.viewCart);

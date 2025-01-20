@@ -41,15 +41,15 @@ class bookController {
         return res.send({ data: data });
     }
 
-    // /**
-    //  * @description: Logout 
-    //  * @param {*} req
-    //  * @param {*} res
-    //  */
-    // static async logout(req, res) {
-    //     const data = await bookService.logout(req,res);
-    //     return 
-    // }
+    /**
+     * @description: Logout 
+     * @param {*} req
+     * @param {*} res
+     */
+    static async logout(req, res) {
+        const data = await bookService.logout(req,res);
+        return 
+    }
 
     /**
      * @description: View Cart Page
